@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import './question.dart';
+import './quiz.dart';
+import './result.dart';
 
 // void main() {
 //   runApp(MyApp());
@@ -9,12 +10,26 @@ void main() => runApp(MyApp());
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _MyAppState();
   }
 }
 
 class _MyAppState extends State<MyApp> {
+  final _questions = const [
+    {
+      'questionText': 'What\'s your favorite color?',
+      'answers': ["Black", "Red", "White", "Blue"]
+    },
+    {
+      'questionText': 'What\'s your favorite animals?',
+      'answers': ["Panda", "Horse", "Dog", "Cat"]
+    },
+    {
+      'questionText': 'What\'s your favorite maaa?',
+      'answers': ["test", "test", "test", "test"]
+    }
+  ];
+
   var _questionIndex = 0;
 
   void _answerQuestion() {
@@ -23,29 +38,28 @@ class _MyAppState extends State<MyApp> {
     });
 
     print(_questionIndex);
+
+    if (_questionIndex < _questions.length) {
+      print("We have more questions!");
+    } else {
+      print("No more questions!");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    var questions = [
-      'What\'s your favorite color?',
-      'What\'s your favorite animal?'
-    ];
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: Text('My First App'),
         ),
-        body: Column(
-          children: [
-            Question(questions[_questionIndex]),
-            RaisedButton(child: Text('Answer 1'), onPressed: _answerQuestion),
-            RaisedButton(
-                child: Text('Answer 2'),
-                onPressed: () => print('Answer2 chosen')),
-            RaisedButton(child: Text('Answer 3'), onPressed: _answerQuestion),
-          ],
-        ),
+        body: _questionIndex < _questions.length
+            ? Quiz(
+                answerQuestion: _answerQuestion,
+                questionIndex: _questionIndex,
+                questions: _questions,
+              )
+            : Result(),
       ),
     );
   }
