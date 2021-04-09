@@ -12,7 +12,7 @@ class Result extends StatelessWidget {
     if (resultScore <= 10) {
       resultText = "you are awesome";
     } else if (resultScore <= 40) {
-      resultText = "Prety good";
+      resultText = "Pretty good";
     } else if (resultScore <= 80) {
       resultText = "SO GOOD";
     } else {
@@ -31,8 +31,11 @@ class Result extends StatelessWidget {
           style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
-        TextButton(
-          child: Text("Restart Quiz!"),
+        FlatButton(
+          child: Text(
+            "Restart Quiz!",
+          ),
+          textColor: Colors.blue,
           onPressed: resetHandler,
         ),
       ],
